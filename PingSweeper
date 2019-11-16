@@ -1,0 +1,39 @@
+#!/bin/bash
+
+ip_list=$1
+
+#b
+if [ $# -ne 1 ]
+then
+	read -p "Inserir ficheiro: " ip_list
+fi
+
+#c
+n=1
+#echo "$n"
+while [ $n -le 3 ] && [ ! -f $ip_list ]
+do
+	echo "Ficheiro invalido."
+	read -p "Inserir ficheiro valido: " ip_list
+	n=$((n+1))
+done
+
+if [ n -eq 3]
+then
+	exit
+fi
+
+#d
+for ip in $ip_list
+do
+	for octect in $ip
+	do
+		num=$(cut -d '.' -f$octect)
+		if [ $num -gt "255"]
+		then	
+			echo "wtf"
+			break;
+		fi
+	done
+done
+
